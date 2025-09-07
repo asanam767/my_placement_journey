@@ -1,0 +1,26 @@
+class Solution {
+public:
+
+    bool canJump(int position,vector<int>&nums,vector<int>&memo)
+    {
+        if(memo[position]!=-1) return memo[position];
+        if(position == nums.size()-1)
+        {
+            return true;
+        }
+        int furthestJump = min(position + nums[position],(int)nums.size()-1);
+        for(int i = position+1; i<=furthestJump; i++)
+        {
+            if(canJump(i,nums,memo)) return memo[position] =  true;
+        }
+
+        return memo[position] = false;
+    }
+    bool canJump(vector<int>& nums) {
+       int n = nums.size();
+       vector<int>memo(n,-1);
+       memo[n-1]=1;
+       return canJump(0,nums,memo);
+      
+    }
+};
